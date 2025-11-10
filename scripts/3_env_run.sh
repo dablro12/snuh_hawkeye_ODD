@@ -1,0 +1,1 @@
+docker run -dit --gpus all --shm-size=64g --name odd -v $(pwd)/:/workspace/ torch2.5.1-cuda12.1-env:latest
