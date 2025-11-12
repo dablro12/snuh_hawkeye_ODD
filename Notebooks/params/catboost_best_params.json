@@ -1,0 +1,19 @@
+{
+    "iterations": 752,
+    "learning_rate": 0.05647262328594671,
+    "depth": 8,
+    "l2_leaf_reg": 15.65045895715428,
+    "subsample": 0.73866731442286,
+    "random_strength": 3,
+    "border_count": 74,
+    "task_type": "GPU",
+    "loss_function": "Logloss",
+    "eval_metric": "Logloss",
+    "bootstrap_type": "Bernoulli",
+    "grow_policy": "Depthwise",
+    "early_stopping_rounds": 100,
+    "verbose": 100,
+    "devices": "0",
+    "leaf_estimation_method": "Gradient",
+    "gpu_ram_part": 1.0
+}

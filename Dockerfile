@@ -43,6 +43,7 @@ RUN /bin/bash -c "source /opt/conda/etc/profile.d/conda.sh && conda activate bas
     pip install \
     numpy \
     pandas \
+    openpyxl \
     matplotlib \
     seaborn \
     scikit-learn \
