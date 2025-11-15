@@ -463,3 +463,57 @@ def data_preprocess_pipeline(df):
 
     print("✅ 데이터 전처리 완료")
     return df
+
+
+
+def extract_features_with_onehot(top7_features, raw_df_columns):
+    """
+    top7_features에 있는 feature들을 raw_df_columns에서 찾되,
+    원핫인코딩된 변수들도 모두 포함하여 반환
+    
+    Parameters:
+    -----------
+    top7_features : pandas.Series or list
+        추출할 feature 이름들의 리스트 (예: ['Z_SAS', 'MEdu', 'FJob'])
+    raw_df_columns : pandas.Index or list
+        원본 데이터프레임의 컬럼명들 (원핫인코딩된 것 포함)
+    
+    Returns:
+    --------
+    list
+        매칭되는 모든 feature들의 리스트 (원핫인코딩된 것 포함)
+    
+    Examples:
+    ---------
+    >>> top7_features = pd.Series(['Z_SAS', 'MEdu', 'FJob'])
+    >>> raw_cols = pd.Index(['Z_SAS', 'MEdu_1', 'MEdu_2', 'MEdu_3', 'FJob_1', 'FJob_2'])
+    >>> extract_features_with_onehot(top7_features, raw_cols)
+    ['Z_SAS', 'MEdu_1', 'MEdu_2', 'MEdu_3', 'FJob_1', 'FJob_2']
+    """
+    # top7_features를 리스트로 변환
+    if isinstance(top7_features, pd.Series):
+        feature_list = top7_features.tolist()
+    else:
+        feature_list = list(top7_features)
+    
+    # raw_df_columns를 리스트로 변환
+    if isinstance(raw_df_columns, pd.Index):
+        raw_cols_list = raw_df_columns.tolist()
+    else:
+        raw_cols_list = list(raw_df_columns)
+    
+    matched_features = []
+    
+    for feature in feature_list:
+        # 정확히 일치하는 경우
+        if feature in raw_cols_list:
+            matched_features.append(feature)
+        
+        # 원핫인코딩된 변수들 찾기 (feature_로 시작하는 것들)
+        onehot_features = [col for col in raw_cols_list if col.startswith(feature + '_')]
+        matched_features.extend(onehot_features)
+    
+    # 중복 제거 및 정렬
+    matched_features = sorted(list(set(matched_features)))
+    
+    return matched_features
