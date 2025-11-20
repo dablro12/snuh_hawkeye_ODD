@@ -217,4 +217,5 @@ Notebooks/catboost_info
 
 
 
-data 
+data/
+data/**
